@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta th:replace="/fragments :: head('部门列表')"></meta>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini fixed">
+	<div class="wrapper">
+		<div th:replace="/fragments :: header"></div>
+		<div th:replace="/fragments :: sidebar('system_department')"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					部门 <small>部门列表</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="javascript:;"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+					<li><a href="javascript:;">部门管理</a></li>
+					<li class="active">部门列表</li>
+				</ol>
+			</section>
+
+			<section class="content">
+
+				<div class="mailbox-controls">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-primary" th:href="@{/system/department/add}"> <i class="fa fa-plus"></i> 添加
+						</a>
+					</div>
+				</div>
+
+				<div class="box box-primary">
+					<div class="box-body no-padding">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>名称</th>
+									<th class="hidden-xs">电话</th>
+									<th class="hidden-xs hidden-sm">排序号</th>
+									<th class="command-column" style="width: 120px;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="entity: ${entities}" th:class="'treegrid-'+${entity.id}" th:classappend="${entity.parent==null}?'':('treegrid-parent-'+${entity.parent.id})">
+									<td th:text="${entity.name}">name</td>
+									<td class="hidden-xs" th:text="${entity.phone}">phone</td>
+									<td class="hidden-xs hidden-sm" th:text="${entity.sortNo}">sortNo</td>
+									<td>
+										<div class="btn-group btn-group-sm" th:data-row-id="${entity.id}">
+											<a class="btn btn-primary" th:href="@{/system/department/add?parent=}+${entity.id}"> <i class="fa fa-plus"></i>
+											</a> <a class="btn btn-primary" th:href="@{/system/department/edit/}+${entity.id}"> <i class="glyphicon glyphicon-edit"></i>
+											</a> <a class="btn btn-danger command-delete" href="javascript:;"> <i class="glyphicon glyphicon-remove"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</section>
+		</div>
+
+
+		<div th:replace="/fragments :: footer"></div>
+	</div>
+	<script th:replace="/fragments :: script"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".content table").treegrid();
+
+			var deleteRow = function(ids) {
+				if (confirm("确定要删除吗？")) {
+					$.post(base + "/system/department/delete", {
+						ids : ids
+					}, function(resp) {
+						if (resp.success) {
+							alert("操作成功");
+							location.reload();
+						} else {
+							alert(resp.msg);
+						}
+					}, "json");
+				}
+			};
+
+			$(".content table").find(".command-delete").on("click", function(e) {
+				var entity_id = $(this).closest(".btn-group").data("row-id");
+				deleteRow([ entity_id ]);
+			});
+		});
+	</script>
+
+</body>
+</html>

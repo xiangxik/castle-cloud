@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.76.217.241:3306/example?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: asd123
+  data:
+    jpa:
+      repositories:
+        enabled: false
+  thymeleaf:
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+i18n:
+  messages: default
+  default_locale: zh_CN
+security:
+  basic:
+    enabled: false

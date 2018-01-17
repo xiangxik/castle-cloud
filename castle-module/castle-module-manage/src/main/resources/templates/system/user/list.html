@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta th:replace="/fragments :: head('用户列表')"></meta>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini fixed">
+	<div class="wrapper">
+		<div th:replace="/fragments :: header"></div>
+		<div th:replace="/fragments :: sidebar('system_user')"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					用户 <small>用户列表</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="javascript:;"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+					<li><a href="javascript:;">用户管理</a></li>
+					<li class="active">用户列表</li>
+				</ol>
+			</section>
+
+			<section class="content">
+
+				<div class="mailbox-controls">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-primary" th:href="@{/system/user/add}"> <i class="fa fa-plus"></i> 添加
+						</a>
+						<button aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">
+							批量 <span class="fa fa-caret-down"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="javascript:;" id="delete-button"> <i class="glyphicon glyphicon-remove"></i> 删除
+							</a></li>
+						</ul>
+					</div>
+					<div class="btn-group btn-group-sm">
+						<button id="open-search-button" type="button" class="btn btn-primary">
+							<i class="fa fa-search"></i>
+						</button>
+						<button type="button" class="btn btn-warning" id="refresh-button">
+							<i class="fa fa-refresh"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="box box-success" id="search-panel">
+					<form id="search-form" class="form-search form-inline">
+						<div class="box-body">
+							<div class="form-group">
+								<label for="search-username" class="control-label">账号</label> <input class="form-control" id="search-username" placeholder="请输入账号" name="username" type="text">
+							</div>
+							<div class="form-group">
+								<label for="search-name" class="control-label">姓名</label> <input class="form-control" id="search-name" placeholder="请输入姓名" name="name" type="text">
+							</div>
+							<button type="submit" class="btn btn-primary btn-sm" id="search-button">
+								<i class="fa fa-search"></i> 搜索
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="box box-primary">
+					<div class="box-body no-padding">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
+									<th data-column-id="username">账号</th>
+									<th data-column-id="name">姓名</th>
+									<th data-formatter="commands" data-css-class="command-column" data-width="120px" data-sortable="false" data-align="center" data-header-align="center">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+
+			</section>
+		</div>
+
+
+		<div th:replace="/fragments :: footer"></div>
+	</div>
+	<script th:replace="/fragments :: script"></script>
+	<script type="text/javascript">
+		$(function() {
+			var $searchForm = $("#search-form");
+			var $searchButton = $("#search-button");
+			var $refreshButton = $("#refresh-button");
+			var $toggleSearchButton = $("#open-search-button");
+			var $searchPanel = $("#search-panel");
+			var $deleteButton = $("#delete-button");
+
+			var deleteRow = function(grid, ids) {
+				if (confirm("确定要删除吗？")) {
+					$.post(base + "/system/user/delete", {
+						ids : ids
+					}, function(resp) {
+						if (resp.success) {
+							grid.bootgrid("reload");
+							alert("操作成功");
+						} else {
+							alert(resp.msg);
+						}
+					}, "json");
+				}
+			};
+
+			var $table = $(".content table")
+					.bootgrid(
+							{
+								url : base + "/system/user/page",
+								post : function() {
+									var keyValues = $searchForm.serialize();
+									return parseQueryString(keyValues);
+								},
+								formatters : {
+									"commands" : function(column, row) {
+										return "\
+										<div class=\"btn-group btn-group-sm\" data-row-id=\""+row.id+"\">\
+											<a class=\"btn btn-primary\" href=\""+base+"/system/user/edit/"+row.id+"\">\
+												<i class=\"glyphicon glyphicon-edit\"></i>\
+											</a>\
+											<a aria-expanded=\"false\" aria-haspopup=\"true\" data-toggle=\"dropdown\" \
+											class=\"btn btn-primary dropdown-toggle\" type=\"button\">\
+												<i class=\"fa fa-cog\"></i>\
+												<span class=\"ion-arrow-down-b\"></span>\
+											</a>\
+											<ul class=\"dropdown-menu pull-right\">\
+												<li><a href=\"javascript:;\" class=\"command-delete\"><i class=\"glyphicon glyphicon-remove\"></i> 移除</a></li>\
+											</ul>\
+										</div>";
+									}
+								}
+							});
+			$table.on("loaded.rs.jquery.bootgrid", function() {
+				var $this = $(this);
+				$this.find(".dropdown-toggle").dropdown();
+
+				$this.find(".command-delete").on("click", function(e) {
+					var entity_id = $(this).closest(".btn-group").data("row-id");
+					deleteRow($this, [ entity_id ]);
+				});
+			});
+
+			$deleteButton.on("click", function() {
+				multiAction($table, deleteRow);
+			});
+
+			$searchPanel.on("click", function() {
+				if ($table) {
+					$table.bootgrid("reload");
+				}
+				return false;
+			});
+			$refreshButton.on("click", function() {
+				if ($table) {
+					$table.bootgrid("reload");
+				}
+			});
+
+			$toggleSearchButton.on("click", function() {
+				if ($searchPanel) {
+					$searchPanel.toggle('fast')
+				}
+			});
+		});
+	</script>
+
+</body>
+</html>

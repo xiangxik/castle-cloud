@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta th:replace="/fragments :: head((${entity.new}?'新建':'编辑')+'用户')"></meta>
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+	<div class="wrapper">
+		<div th:replace="/fragments :: header"></div>
+		<div th:replace="/fragments :: sidebar('system_user')"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					用户 <small th:text="(${entity.new}?'新建':'编辑')+'用户'"></small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="javascript:;"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+					<li><a href="javascript:;">用户管理</a></li>
+					<li class="active" th:text="(${entity.new}?'新建':'编辑')+'用户'"></li>
+				</ol>
+			</section>
+
+			<section class="content">
+
+
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">请输入用户信息</h3>
+					</div>
+					<form class="form-horizontal" th:action="@{/system/user/save}" method="post" th:object="${entity}">
+						<input type="hidden" name="id" th:value="*{id}" />
+						<div class="box-body">
+							<div class="form-group">
+								<label for="input-username" class="col-sm-2 control-label"><i class="required-tip">*</i>账号</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-username" th:field="*{username}" placeholder="请输入账号" type="text" data-parsley-required="true" data-parsley-minlength="4" data-parsley-maxlength="20" data-parsley-maxlength-message="账号的最大长度为20">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-password" class="col-sm-2 control-label">密码</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-password" name="newPassword" th:placeholder="*{id}==null?'请输入密码':'请输入密码, 留空则不修改'" value="" type="password">
+								</div>
+								<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="密码必须是6-16位数字、字符组合（不能是纯数字）。修改时，留空则不修改"></i>
+							</div>
+							<div class="form-group">
+								<label for="input-name" class="col-sm-2 control-label"><i class="required-tip">*</i>姓名</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-name" placeholder="请输入姓名" th:field="*{name}" type="text" data-parsley-required="true" data-parsley-required-message="请填写姓名">
+								</div>
+							</div>
+
+						</div>
+						<div class="box-footer">
+							<button type="button" class="btn btn-default" onclick="location.href=base+'/system/user'">返回列表</button>
+							<button type="submit" class="btn btn-success pull-right">保存</button>
+						</div>
+					</form>
+				</div>
+
+			</section>
+		</div>
+
+
+		<div th:replace="/fragments :: footer"></div>
+	</div>
+	<script th:replace="/fragments :: script"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".content form").parsley().on("form:submit", function(obj) {
+				var $form = $(obj.element);
+				$.post($form.attr('action'), $form.serialize(), function(result) {
+					if (result.success) {
+						alert("操作成功")
+						location.href = base + "/system/user";
+					} else {
+						alert(result.msg);
+					}
+				}, "json");
+				return false;
+			});
+		});
+	</script>
+
+</body>
+</html>

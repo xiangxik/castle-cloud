@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta th:replace="/fragments :: head((${entity.new}?'新建':'编辑')+'菜单')"></meta>
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+	<div class="wrapper">
+		<div th:replace="/fragments :: header"></div>
+		<div th:replace="/fragments :: sidebar('system_menu')"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					菜单 <small th:text="(${entity.new}?'新建':'编辑')+'菜单'"></small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="javascript:;"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+					<li><a href="javascript:;">菜单管理</a></li>
+					<li class="active" th:text="(${entity.new}?'新建':'编辑')+'菜单'"></li>
+				</ol>
+			</section>
+
+			<section class="content">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">请输入菜单信息</h3>
+					</div>
+					<form class="form-horizontal" th:action="@{/system/menu/save}" method="post" th:object="${entity}">
+						<input type="hidden" th:field="*{id}" />
+						<div class="box-body">
+							<div class="form-group" th:if="*{parent}!=null">
+								<label for="input-parent" class="col-sm-2 control-label">上级</label>
+
+								<div class="col-sm-9">
+									<input type="hidden" th:field="*{parent}" /> <input class="form-control" id="input-parent" readonly="readonly" th:value="*{parent.name}" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-name" class="col-sm-2 control-label"><i class="required-tip">*</i>名称</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-name" placeholder="请输入名称" th:field="*{name}" type="text" data-parsley-required="true" data-parsley-required-message="请填写名称">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-code" class="col-sm-2 control-label">代号</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-code" placeholder="请输入代号" th:field="*{code}" type="text" data-parsley-required="true" data-parsley-required-message="请填写代号">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-iconCls" class="col-sm-2 control-label">图标样式</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-iconCls" placeholder="请输入图标样式" th:field="*{iconCls}" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-href" class="col-sm-2 control-label">链接</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-href" placeholder="请输入链接" th:field="*{href}" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-parameters" class="col-sm-2 control-label">参数</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-parameters" placeholder="请输入参数" th:field="*{parameters}" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="input-sortNo" class="col-sm-2 control-label">排序号</label>
+
+								<div class="col-sm-9">
+									<input class="form-control" id="input-sortNo" placeholder="请输入排序号" th:field="*{sortNo}" type="number">
+								</div>
+							</div>
+						</div>
+						<div class="box-footer">
+							<button type="button" class="btn btn-default" onclick="location.href=base+'/system/menu'">返回列表</button>
+							<button type="submit" class="btn btn-success pull-right">保存</button>
+						</div>
+					</form>
+				</div>
+
+			</section>
+		</div>
+
+
+		<div th:replace="/fragments :: footer"></div>
+	</div>
+	<script th:replace="/fragments :: script"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".content form").parsley().on("form:submit", function(obj) {
+				var $form = $(obj.element);
+				$.post($form.attr('action'), $form.serialize(), function(result) {
+					if (result.success) {
+						alert("操作成功")
+						location.href = base + "/system/menu";
+					} else {
+						alert(result.msg);
+					}
+				}, "json");
+				return false;
+			});
+		});
+	</script>
+
+</body>
+</html>

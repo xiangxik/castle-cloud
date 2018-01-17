@@ -1,0 +1,25 @@
+server:
+  port: 8761
+eureka:
+  server:
+    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 90000
+  client:
+    defaultZone: http://localhost:8762/eureka
+spring:
+  profiles: slavea
+  application:
+    name: slave
+---
+server:
+  port: 8762
+eureka:
+  server:
+      enable-self-preservation: true
+      eviction-interval-timer-in-ms: 90000
+  client:
+    defaultZone: http://localhost:8761/eureka
+spring:
+  profiles: slaveb
+  application:
+      name: slave
