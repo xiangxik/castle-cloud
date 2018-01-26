@@ -2,7 +2,7 @@ package me.xiangxik.thymeleaf;
 
 import me.xiangxik.data.domain.Hierarchical;
 
-public interface ThymeleafMenuItem<T> extends Hierarchical<T> {
+public interface ThymeleafMenuItem<T extends ThymeleafMenuItem<T>> extends Hierarchical<T> {
 
 	public String getName();
 

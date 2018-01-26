@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta th:replace="/fragments :: head('首页')"></meta>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini fixed">
+	<div class="wrapper">
+		<div th:replace="/fragments :: header"></div>
+		<div th:replace="/fragments :: sidebar('dashboard')"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					Blank page <small>it all starts here</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="#">Examples</a></li>
+					<li class="active">Blank page</li>
+				</ol>
+			</section>
+
+			<section class="content">
+
+				
+
+			</section>
+		</div>
+
+
+		<div th:replace="/fragments :: footer"></div>
+	</div>
+	<script th:replace="/fragments :: script"></script>
+
+</body>
+</html>

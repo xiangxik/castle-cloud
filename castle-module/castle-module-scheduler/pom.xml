@@ -3,38 +3,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>me.xiangxik</groupId>
-		<artifactId>castle-boot</artifactId>
+		<artifactId>castle-module</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>castle-boot-data-jpa</artifactId>
+	<artifactId>castle-module-scheduler</artifactId>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>me.xiangxik</groupId>
-			<artifactId>castle-boot-json</artifactId>
+			<artifactId>castle-boot-thymeleaf-adminlte</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<scope>compile</scope>
+			<groupId>me.xiangxik</groupId>
+			<artifactId>castle-boot-webapp</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -64,5 +47,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

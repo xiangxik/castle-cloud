@@ -9,5 +9,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>castle-module-manage</module>
+  	<module>castle-module-scheduler</module>
   </modules>
 </project>
