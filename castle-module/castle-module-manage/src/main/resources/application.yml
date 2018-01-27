@@ -22,9 +22,8 @@ spring:
     encoding: UTF-8
     content-type: text/html
     cache: false
-i18n:
-  messages: default
-  default_locale: zh_CN
+  messages:
+    basename: default
 security:
   basic:
     enabled: false

@@ -4,30 +4,26 @@
 <meta th:replace="/fragments :: head('首页')"></meta>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini fixed">
+<body class="hold-transition skin-blue layout-top-nav fixed">
 	<div class="wrapper">
-		<div th:replace="/fragments :: header"></div>
-		<div th:replace="/fragments :: sidebar('dashboard')"></div>
+		<div th:replace="/fragments :: navbar('dashboard')"></div>
 
 		<div class="content-wrapper">
+
 			<section class="content-header">
 				<h1>
-					Blank page <small>it all starts here</small>
+					Top Navigation <small>Example 2.0</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li><a href="#">Examples</a></li>
-					<li class="active">Blank page</li>
+					<li><a href="#">Layout</a></li>
+					<li class="active">Top Navigation</li>
 				</ol>
 			</section>
-
+			
 			<section class="content">
-
-				
-
 			</section>
 		</div>
-
 
 		<div th:replace="/fragments :: footer"></div>
 	</div>

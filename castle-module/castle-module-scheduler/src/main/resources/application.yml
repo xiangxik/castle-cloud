@@ -4,7 +4,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://120.76.217.241:3306/example?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -22,9 +22,8 @@ spring:
     encoding: UTF-8
     content-type: text/html
     cache: false
-i18n:
-  messages: default
-  default_locale: zh_CN
+  messages:
+    basename: default
 security:
   basic:
     enabled: false
