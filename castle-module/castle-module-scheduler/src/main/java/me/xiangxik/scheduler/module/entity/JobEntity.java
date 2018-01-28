@@ -3,7 +3,6 @@ package me.xiangxik.scheduler.module.entity;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -37,7 +36,6 @@ public class JobEntity extends AbstractPersistable<JobPrimaryKey> {
 	private Boolean requestsRecovery;
 
 	@Column(name = "JOB_DATA")
-	@Lob
 	@Convert(converter = me.xiangxik.scheduler.support.SerializeJobDataConverter.class)
 	private JobDataMap data;
 
