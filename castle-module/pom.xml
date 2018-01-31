@@ -10,5 +10,6 @@
   <modules>
   	<module>castle-module-manage</module>
   	<module>castle-module-scheduler</module>
+  	<module>castle-module-data-migration</module>
   </modules>
 </project>

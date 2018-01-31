@@ -19,6 +19,8 @@
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 		<thymeleaf-extras-java8time.version>3.0.1.RELEASE</thymeleaf-extras-java8time.version>
 
+		<jooq.version>3.10.4</jooq.version>
+
 		<querydsl.version>4.1.4</querydsl.version>
 		<junit.version>4.12</junit.version>
 	</properties>
@@ -63,6 +65,23 @@
 				<groupId>org.thymeleaf.extras</groupId>
 				<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 				<version>${thymeleaf-extras-springsecurity4.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq</artifactId>
+				<version>${jooq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-meta</artifactId>
+				<version>${jooq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen</artifactId>
+				<scope>provided</scope>
+				<version>${jooq.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
