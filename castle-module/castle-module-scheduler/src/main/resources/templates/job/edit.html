@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta th:replace="/fragments :: head((${entity.new}?'新建':'编辑')+${jobType.label}+'作业')"></meta>
+<meta th:replace="/fragments :: head((${entity.jobName==null}?'新建':'编辑')+${jobType.label}+'作业')"></meta>
 </head>
 <body class="hold-transition skin-blue layout-top-nav fixed">
 	<div class="wrapper">
@@ -10,12 +10,12 @@
 		<div class="content-wrapper">
 			<section class="content-header">
 				<h1>
-					作业 <small th:text="(${entity.new}?'新建':'编辑')+'作业'"></small>
+					作业 <small th:text="(${entity.jobName==null}?'新建':'编辑')+'作业'"></small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="javascript:;"><i class="fa fa-dashboard"></i> 系统管理</a></li>
 					<li><a href="javascript:;">作业管理</a></li>
-					<li class="active" th:text="(${entity.new}?'新建':'编辑')+${jobType.label}+'作业'"></li>
+					<li class="active" th:text="(${entity.jobName==null}?'新建':'编辑')+${jobType.label}+'作业'"></li>
 				</ol>
 			</section>
 
@@ -26,13 +26,13 @@
 						<h3 class="box-title" th:inline="text">请输入[[${jobType.label}]]作业信息</h3>
 					</div>
 					<form class="form-horizontal" th:action="@{/job/save}" method="post" th:object="${entity}">
-						<input type="hidden" th:field="*{id.scheduler}" /> <input type="hidden" th:field="*{jobClassName}" />
+						<input type="hidden" th:field="*{jobClass}" />
 						<div class="box-body">
 							<div class="form-group">
 								<label for="input-group" class="col-sm-2 control-label"><i class="required-tip">*</i>作业组</label>
 
 								<div class="col-sm-9">
-									<input class="form-control" id="input-group" placeholder="请输入组名" th:field="*{id.group}" type="text" data-parsley-required="true"
+									<input class="form-control" id="input-group" placeholder="请输入组名" th:field="*{jobGroup}" type="text" data-parsley-required="true"
 										data-parsley-required-message="请填写组名">
 								</div>
 							</div>
@@ -40,7 +40,7 @@
 								<label for="input-name" class="col-sm-2 control-label"><i class="required-tip">*</i>作业名称</label>
 
 								<div class="col-sm-9">
-									<input class="form-control" id="input-name" placeholder="请输入作业名称" th:field="*{id.name}" type="text" data-parsley-required="true"
+									<input class="form-control" id="input-name" placeholder="请输入作业名称" th:field="*{jobName}" type="text" data-parsley-required="true"
 										data-parsley-required-message="请填写作业名称">
 								</div>
 							</div>
@@ -68,14 +68,13 @@
 									</label>
 								</div>
 							</div>
-							
+
 							<div th:replace="/job/__${jobType}__ :: content"></div>
 						</div>
-						
-						<div class="box-body">
-						</div>
+
+						<div class="box-body"></div>
 						<div class="box-footer">
-							<button type="button" class="btn btn-default" onclick="location.href=base+'/system/user'">返回列表</button>
+							<button type="button" class="btn btn-default" onclick="location.href=base+'/job'">返回列表</button>
 							<button type="submit" class="btn btn-success pull-right">保存</button>
 						</div>
 					</form>

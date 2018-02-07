@@ -5,14 +5,80 @@
 	<th:block th:fragment="content">
 
 		<div class="form-group">
-			<label for="input-description" class="col-sm-2 control-label"><i class="required-tip">*</i>作业描述</label>
+			<label for="input-smtp_host" class="col-sm-2 control-label"><i class="required-tip">*</i>smtp_host</label>
 
 			<div class="col-sm-9">
-				<textarea class="form-control" id="input-description" placeholder="请输入作业描述" th:field="*{description}" type="text" data-parsley-required="true"
-					data-parsley-required-message="请填写作业描述"></textarea>
+				<input class="form-control" id="input-smtp_host" placeholder="请输入smtp_host" th:field="*{data['smtp_host']}" type="text"
+					data-parsley-required="true" data-parsley-required-message="请填写smtp_host">
 			</div>
 		</div>
-		
+		<div class="form-group">
+			<label for="input-recipient" class="col-sm-2 control-label"><i class="required-tip">*</i>recipient</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-recipient" placeholder="请输入recipient" th:field="*{data['recipient']}" type="text"
+					data-parsley-required="true" data-parsley-required-message="请填写recipient">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-sender" class="col-sm-2 control-label"><i class="required-tip">*</i>sender</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-sender" placeholder="请输入sender" th:field="*{data['sender']}" type="text" data-parsley-required="true"
+					data-parsley-required-message="请填写sender">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-subject" class="col-sm-2 control-label"><i class="required-tip">*</i>subject</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-subject" placeholder="请输入subject" th:field="*{data['subject']}" type="text" data-parsley-required="true"
+					data-parsley-required-message="请填写subject">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-message" class="col-sm-2 control-label"><i class="required-tip">*</i>message</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-message" placeholder="请输入message" th:field="*{data['message']}" type="text" data-parsley-required="true"
+					data-parsley-required-message="请填写message">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-reply_to" class="col-sm-2 control-label">reply_to</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-reply_to" placeholder="请输入reply_to" th:field="*{data['reply_to']}" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-cc_recipient" class="col-sm-2 control-label">cc_recipient</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-cc_recipient" placeholder="请输入cc_recipient" th:field="*{data['cc_recipient']}" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-content_type" class="col-sm-2 control-label">content_type</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-content_type" placeholder="请输入content_type" th:field="*{data['content_type']}" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-username" class="col-sm-2 control-label">username</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-username" placeholder="请输入username" th:field="*{data['username']}" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="input-password" class="col-sm-2 control-label">password</label>
+
+			<div class="col-sm-9">
+				<input class="form-control" id="input-password" placeholder="请输入password" th:field="*{data['password']}" type="text">
+			</div>
+		</div>
 	</th:block>
 
 </body>

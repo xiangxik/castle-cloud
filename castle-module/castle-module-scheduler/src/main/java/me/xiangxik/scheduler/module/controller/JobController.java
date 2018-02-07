@@ -1,66 +1,82 @@
 package me.xiangxik.scheduler.module.controller;
 
-import java.util.Objects;
 import java.util.Set;
 
+import org.quartz.Job;
+import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.base.Strings;
-import com.querydsl.core.types.Predicate;
+import com.google.common.collect.Lists;
 
-import me.xiangxik.scheduler.module.entity.JobEntity;
-import me.xiangxik.scheduler.module.entity.JobPrimaryKey;
 import me.xiangxik.scheduler.module.entity.JobType;
-import me.xiangxik.webapp.EntityController;
+import me.xiangxik.scheduler.module.model.JobModel;
+import me.xiangxik.webapp.BaseController;
 
 @Controller
 @RequestMapping("/job")
-public class JobController extends EntityController<JobEntity, JobPrimaryKey> {
+public class JobController extends BaseController {
 
 	@Autowired
 	private Scheduler scheduler;
-	
-	@Override
-	public Page<JobEntity> doPage(Predicate predicate, Pageable pageable) {
-		
-		try {
-			Set<JobKey> jobKey = scheduler.getJobKeys(GroupMatcher.anyJobGroup());
-			System.out.println(jobKey);
-		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return super.doInternalPage(predicate, pageable);
+
+	@RequestMapping(value = "/page", method = RequestMethod.POST)
+	@ResponseBody
+	public Page<JobModel> doPage(Pageable pageable) throws SchedulerException {
+		Set<JobKey> jobKeys = scheduler.getJobKeys(GroupMatcher.anyJobGroup());
+		return new PageImpl<>(Lists.newArrayList(jobKeys), pageable, jobKeys.size()).map(jobKey -> {
+			JobModel jobModel = new JobModel();
+			try {
+				JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+				jobModel.setJobName(jobDetail.getKey().getName());
+				jobModel.setJobGroup(jobDetail.getKey().getGroup());
+				jobModel.setJobClass(jobDetail.getJobClass());
+				jobModel.setDescription(jobDetail.getDescription());
+				jobModel.setDurable(jobDetail.isDurable());
+				jobModel.setRequestsRecovery(jobDetail.requestsRecovery());
+				// jobModel.setData(jobDetail.getJobDataMap());
+			} catch (SchedulerException e) {
+				e.printStackTrace();
+			}
+			return jobModel;
+		});
 	}
 
-	@Override
-	protected void onShowListPage(Model model) {
+	@RequestMapping(value = { "", "/", "/list" }, method = RequestMethod.GET)
+	public String show(Model model) {
 		model.addAttribute("jobTypes", JobType.values());
+		return "/job/list";
 	}
 
-	@Override
-	protected void onShowEditPage(JobEntity entity, Model model) {
-		if (Strings.isNullOrEmpty(entity.getJobClassName())) {
-			JobType jobType = getParameter("type", JobType.class, JobType.no_op);
-			entity.setJobClassName(jobType.getJobClass().getName());
-		}
-
-		model.addAttribute("jobType", jobClassNameToType(entity.getJobClassName()));
+	@RequestMapping(value = { "/add", "/edit" }, method = RequestMethod.GET)
+	public String add(Model model) {
+		JobModel jobModel = new JobModel();
+		JobType jobType = getParameter("type", JobType.class, JobType.no_op);
+		jobModel.setJobClass(jobType.getJobClass());
+		return edit(jobModel, model);
 	}
 
-	private JobType jobClassNameToType(String jobClassName) {
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public String edit(JobModel entity, Model model) {
+		model.addAttribute("jobType", jobClassToType(entity.getJobClass()));
+		model.addAttribute("entity", entity);
+		return "/job/edit";
+	}
+
+	private JobType jobClassToType(Class<? extends Job> jobClass) {
 		for (JobType jobType : JobType.values()) {
-			if (Objects.equals(jobClassName, jobType.getJobClass().getName())) {
+			if (jobType.getJobClass().isAssignableFrom(jobClass)) {
 				return jobType;
 			}
 		}
