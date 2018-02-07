@@ -25,8 +25,8 @@
 
 				<div class="mailbox-controls">
 					<div class="btn-group btn-group-sm">
-						<a class="btn btn-primary" th:href="@{/job/add}"> <i
-							class="fa fa-plus"></i> 添加
+						<a th:each="jobType:${jobTypes}" class="btn btn-primary" th:if="${!jobType.hidden}" th:href="@{/job/add}+'?type='+${jobType}" th:inline="text"> <i
+							class="fa fa-plus"></i> 添加[[${jobType.label}]]作业
 						</a>
 						<button aria-expanded="false" aria-haspopup="true"
 							data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
@@ -58,11 +58,6 @@
 									class="form-control" id="search-group" placeholder="请输入组"
 									name="id.group" type="text">
 							</div>
-							<div class="form-group">
-								<label for="search-name" class="control-label">姓名</label> <input
-									class="form-control" id="search-name" placeholder="请输入姓名"
-									name="id.name" type="text">
-							</div>
 							<button type="submit" class="btn btn-primary btn-sm"
 								id="search-button">
 								<i class="fa fa-search"></i> 搜索
@@ -78,8 +73,8 @@
 								<tr>
 									<th data-column-id="id" data-identifier="true"
 										data-visible="false">ID</th>
-									<th data-column-id="description">账号</th>
-									<th data-column-id="jobClassName">姓名</th>
+									<th data-column-id="description">描述</th>
+									<th data-column-id="jobClassName">作业名</th>
 									<th data-formatter="commands" data-css-class="command-column"
 										data-width="120px" data-sortable="false" data-align="center"
 										data-header-align="center">操作</th>

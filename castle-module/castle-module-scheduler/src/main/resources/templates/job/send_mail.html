@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<th:block th:fragment="content">
+
+		<div class="form-group">
+			<label for="input-description" class="col-sm-2 control-label"><i class="required-tip">*</i>作业描述</label>
+
+			<div class="col-sm-9">
+				<textarea class="form-control" id="input-description" placeholder="请输入作业描述" th:field="*{description}" type="text" data-parsley-required="true"
+					data-parsley-required-message="请填写作业描述"></textarea>
+			</div>
+		</div>
+		
+	</th:block>
+
+</body>
+</html>

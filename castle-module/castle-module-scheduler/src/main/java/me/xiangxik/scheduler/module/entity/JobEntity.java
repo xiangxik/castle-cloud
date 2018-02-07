@@ -3,17 +3,24 @@ package me.xiangxik.scheduler.module.entity;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.quartz.JobDataMap;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.data.domain.Persistable;
 
 @Entity
 @Table(name = "QRTZ_JOB_DETAILS")
-public class JobEntity extends AbstractPersistable<JobPrimaryKey> {
+public class JobEntity implements Persistable<JobPrimaryKey> {
 
 	private static final long serialVersionUID = -4601792937530510015L;
+
+	@Id
+	@GeneratedValue
+	private JobPrimaryKey id;
 
 	@Size(max = 250)
 	@Column(name = "DESCRIPTION")
@@ -93,6 +100,21 @@ public class JobEntity extends AbstractPersistable<JobPrimaryKey> {
 
 	public void setData(JobDataMap data) {
 		this.data = data;
+	}
+
+	public void setId(JobPrimaryKey id) {
+		this.id = id;
+	}
+
+	@Override
+	public JobPrimaryKey getId() {
+		return id;
+	}
+
+	@Transient
+	@Override
+	public boolean isNew() {
+		return null == getId();
 	}
 
 }
