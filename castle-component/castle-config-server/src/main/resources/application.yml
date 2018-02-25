@@ -1,0 +1,23 @@
+server:
+  port: 8899
+spring:
+  application:
+    name: castle-config-server
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/xiangxik/cloud-config
+          username: xiangxik 
+          password: qwer1234
+encrypt:
+  key: testkey
+management:
+  security:
+    enabled: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

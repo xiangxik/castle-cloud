@@ -9,5 +9,9 @@
   <packaging>pom</packaging>
   <modules>
   	<module>castle-eureka-server</module>
+  	<module>castle-config-client</module>
+  	<module>castle-config-server</module>
+  	<module>castle-gateway-zuul</module>
+  	<module>castle-message-bus</module>
   </modules>
 </project>

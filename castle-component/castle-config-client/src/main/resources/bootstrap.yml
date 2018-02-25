@@ -1,0 +1,18 @@
+server:
+  port: 8081
+management:
+  security:
+    enabled: false
+spring:
+  application:
+    name: castle-config-client
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: castle-config-server
+      profile: dev   # castle-config-client-dev.yml
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

@@ -10,16 +10,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<servlet-api.version>3.1.0</servlet-api.version>
-		<springboot.version>1.5.9.RELEASE</springboot.version>
+		<springboot.version>1.5.10.RELEASE</springboot.version>
 
 		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
 		<thymeleaf-extras-springsecurity4.version>3.0.2.RELEASE</thymeleaf-extras-springsecurity4.version>
 		<thymeleaf-extras-conditionalcomments.version>2.1.2.RELEASE</thymeleaf-extras-conditionalcomments.version>
-		<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
+		<thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 		<thymeleaf-extras-java8time.version>3.0.1.RELEASE</thymeleaf-extras-java8time.version>
 
-		<jooq.version>3.10.4</jooq.version>
+		<jooq.version>3.10.5</jooq.version>
 
 		<querydsl.version>4.1.4</querydsl.version>
 		<junit.version>4.12</junit.version>
@@ -37,7 +37,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Edgware.RELEASE</version>
+				<version>Edgware.SR2</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
