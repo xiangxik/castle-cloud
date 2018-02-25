@@ -11,7 +11,7 @@ spring:
         git:
           uri: https://github.com/xiangxik/cloud-config
           username: xiangxik 
-          password: qwer1234
+          password: aaabbb
 encrypt:
   key: testkey
 management:
