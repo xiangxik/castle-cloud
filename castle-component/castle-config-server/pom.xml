@@ -22,8 +22,8 @@
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 		<!-- <dependency>
-			<groupId>org.tmatesoft.svnkit</groupId>
-			<artifactId>svnkit</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency> -->
 	</dependencies>
 </project>

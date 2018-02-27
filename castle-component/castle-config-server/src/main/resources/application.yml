@@ -10,10 +10,8 @@ spring:
       server:
         git:
           uri: https://github.com/xiangxik/cloud-config
-          username: xiangxik 
-          password: aaabbb
-encrypt:
-  key: testkey
+        health:
+          enabled: false
 management:
   security:
     enabled: false
