@@ -8,6 +8,8 @@ spring:
     name: castle-config-client
   cloud:
     config:
+      username: root
+      password: qwe123
       discovery:
         enabled: true
         service-id: castle-config-server

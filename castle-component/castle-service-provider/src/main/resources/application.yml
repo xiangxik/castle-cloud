@@ -1,0 +1,12 @@
+server:
+  port: 9102
+spring:
+  application:
+    name: castle-service-provider
+management:
+  security:
+    enabled: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

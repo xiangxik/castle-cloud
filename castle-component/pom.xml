@@ -13,5 +13,7 @@
   	<module>castle-config-server</module>
   	<module>castle-gateway-zuul</module>
   	<module>castle-message-bus</module>
+  	<module>castle-service-provider</module>
+  	<module>castle-service-invoker</module>
   </modules>
 </project>

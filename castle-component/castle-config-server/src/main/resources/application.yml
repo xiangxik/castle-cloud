@@ -12,6 +12,10 @@ spring:
           uri: https://github.com/xiangxik/cloud-config
         health:
           enabled: false
+security:
+  user:
+    name: root
+    password: qwe123
 management:
   security:
     enabled: false
