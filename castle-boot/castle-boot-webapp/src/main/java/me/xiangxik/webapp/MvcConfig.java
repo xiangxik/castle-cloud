@@ -108,8 +108,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		argumentResolvers.add(sortResolver());
 		argumentResolvers.add(pageableResolver());
 
-		ProxyingHandlerMethodArgumentResolver resolver = new ProxyingHandlerMethodArgumentResolver(
-				conversionService.getObject());
+		ProxyingHandlerMethodArgumentResolver resolver = new ProxyingHandlerMethodArgumentResolver(conversionService,
+				true);
 		resolver.setBeanFactory(applicationContext);
 		resolver.setBeanClassLoader(applicationContext.getClassLoader());
 
