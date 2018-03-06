@@ -8,6 +8,8 @@ spring:
     name: castle-gateway-zuul
   cloud:
     config:
+      username: root
+      password: qwe123
       discovery:
         enabled: true
         service-id: castle-config-server

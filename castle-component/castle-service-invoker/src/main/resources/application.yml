@@ -3,6 +3,18 @@ server:
 spring:
   application:
     name: castle-service-invoker
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+      circuitBreaker:
+        requestVolumeThreshold: 3
 management:
   security:
     enabled: false

@@ -15,5 +15,6 @@
   	<module>castle-message-bus</module>
   	<module>castle-service-provider</module>
   	<module>castle-service-invoker</module>
+  	<module>castle-hystrix-dashboard</module>
   </modules>
 </project>

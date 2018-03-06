@@ -14,6 +14,12 @@ public class FooController {
 
 	@RequestMapping(value = "/call/{id}", method = RequestMethod.GET)
 	public Foo call(@PathVariable Integer id, HttpServletRequest request) {
+//		try {
+//			Thread.sleep(2500);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		Foo foo = new Foo();
 		foo.setId(id);
 		foo.setName("ttt");
